@@ -1,0 +1,4 @@
+# Identifiants et secrets
+vault.yml
+*.vault
+group_vars/windows/vault.yml

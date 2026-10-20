@@ -1,0 +1,21 @@
+---
+- name: Configurer les bases de Linux
+  hosts: linux
+  connection: local
+  become: true
+
+  tasks:
+    - name: Installer les outils de base
+      ansible.builtin.apt:
+        name:
+          - curl
+          - git
+          - nginx
+        state: present
+        update_cache: true
+
+    - name: Activer et démarrer Nginx
+      ansible.builtin.service:
+        name: nginx
+        state: started
+        enabled: true

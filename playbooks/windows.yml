@@ -1,0 +1,18 @@
+---
+- name: Vérifier la configuration de Windows Server
+  hosts: windows
+  gather_facts: true
+
+  tasks:
+    - name: Afficher le nom de la machine
+      ansible.builtin.debug:
+        msg: "Nom : {{ ansible_facts.hostname }}"
+
+    - name: Vérifier que le service DNS fonctionne
+      ansible.windows.win_service:
+        name: DNS
+      register: dns_service
+
+    - name: Afficher l'état du service DNS
+      ansible.builtin.debug:
+        msg: "Service DNS : {{ dns_service.state }}"
