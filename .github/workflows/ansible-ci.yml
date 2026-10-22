@@ -1,0 +1,26 @@
+name: Ansible CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  syntax-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Recuperer le depot
+        uses: actions/checkout@v4
+
+      - name: Installer Ansible
+        run: |
+          python -m pip install ansible-core pywinrm
+          ansible-galaxy collection install ansible.windows
+
+      - name: Verifier la syntaxe Linux
+        run: |
+          ansible-playbook -i inventory/hosts.yml playbooks/linux.yml --syntax-check
+
+      - name: Verifier la syntaxe Windows
+        run: |
+          ansible-playbook -i inventory/hosts.yml playbooks/windows.yml --syntax-check

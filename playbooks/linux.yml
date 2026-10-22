@@ -19,3 +19,21 @@
         name: nginx
         state: started
         enabled: true
+
+    - name: Garantir la présence du répertoire InfraReady
+      ansible.builtin.file:
+        path: /srv/infraready
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+
+    - name: Vérifier que SSH est actif
+      ansible.builtin.service_facts:
+
+    - name: Confirmer l'état du service SSH
+      ansible.builtin.assert:
+        that:
+          - ansible_facts.services['ssh.service'].state == 'running'
+        fail_msg: "Le service SSH n'est pas actif"
+        success_msg: "Le service SSH est actif"

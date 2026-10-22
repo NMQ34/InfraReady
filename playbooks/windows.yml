@@ -16,3 +16,36 @@
     - name: Afficher l'état du service DNS
       ansible.builtin.debug:
         msg: "Service DNS : {{ dns_service.state }}"
+
+    - name: Vérifier les services essentiels du contrôleur de domaine
+      ansible.windows.win_service_info:
+        name: "{{ item }}"
+      loop:
+        - NTDS
+        - DNS
+        - WinRM
+      register: services_dc
+
+    - name: Confirmer que les services essentiels fonctionnent
+      ansible.builtin.assert:
+        that:
+          - item.exists
+          - item.services[0].state == 'started'
+        fail_msg: "Un service essentiel est absent ou arrêté"
+        success_msg: "Service vérifié : {{ item.item }}"
+      loop: "{{ services_dc.results }}"
+      loop_control:
+        label: "{{ item.item }}"
+
+    - name: Vérifier la présence du répertoire InfraReady
+      ansible.windows.win_stat:
+        path: C:\InfraReady
+      register: repertoire_infraready
+
+    - name: Confirmer la présence du répertoire InfraReady
+      ansible.builtin.assert:
+        that:
+          - repertoire_infraready.stat.exists
+          - repertoire_infraready.stat.isdir
+        fail_msg: "Le répertoire C:\\InfraReady est absent"
+        success_msg: "Le répertoire InfraReady existe"
