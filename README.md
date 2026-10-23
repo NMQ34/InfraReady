@@ -58,6 +58,8 @@ La supervision repose sur :
 - **Windows Exporter :** métriques Windows.
 - **Grafana :** visualisation et alertes.
 
+Un point de contact e-mail InfraReady - Email Alerts, associé à l'adresse fictive admin@infraready.test, est configuré pour illustrer les notifications. Aucun envoi réel n'a été validé, faute de serveur SMTP fonctionnel.
+
 Le tableau de bord couvre notamment la disponibilité des cibles et les indicateurs CPU, mémoire et stockage.
 
 Une règle Grafana détecte les cibles dont la métrique Prometheus `up` reste inférieure à `1` pendant la période configurée.
@@ -130,7 +132,7 @@ Les vérifications CI ne remplacent pas les tests d'exécution réalisés sur le
 - L'infrastructure est un laboratoire pédagogique et non un environnement de production.
 - Les rôles Linux et supervision sont regroupés sur une seule VM pour limiter la consommation de ressources.
 - WIN-DC01 ne dispose pas d'un accès Internet direct ; les limites associées aux mises à jour Windows sont documentées.
-- L'alerte Grafana est visible dans l'interface, mais aucune notification externe n'a été validée.
+- Un destinataire fictif est associé à l'alerte Grafana, mais la livraison des notifications nécessite un serveur SMTP fonctionnel.
 - Les configurations exportées peuvent nécessiter une adaptation à un nouvel environnement, notamment les adresses IP et les identifiants de sources de données Grafana.
 
 ## Conclusion

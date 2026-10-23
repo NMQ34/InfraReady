@@ -61,7 +61,7 @@ Configuration observée :
 
 L'alerte est passée à l'état `Firing` pendant l'incident.
 
-La configuration actuelle n'inclut pas de destinataire externe de notification. L'alerte est donc consultable dans Grafana, sans démonstration d'envoi d'un e-mail ou d'une autre notification.
+Un point de contact InfraReady - Email Alerts a été configuré avec le destinataire fictif admin@infraready.test et associé à la règle d'alerte. Cette configuration illustre l'acheminement prévu des notifications. Aucun serveur SMTP fonctionnel n'a été configuré et aucune livraison d'e-mail n'a été validée.
 
 ## 5. Résolution
 
@@ -114,7 +114,7 @@ L'historique contient également des événements antérieurs dont les causes ex
 ## 8. Limites et améliorations
 
 - L'alerte détecte l'indisponibilité de l'exporter ou de sa collecte, pas nécessairement une panne complète du serveur.
-- Une notification externe pourrait être configurée pour prévenir automatiquement un administrateur.
+- Configurer un serveur SMTP et une adresse réelle pour permettre l'envoi effectif des notifications Grafana.
 - Une supervision complémentaire des services critiques AD DS et DNS permettrait de mieux distinguer les incidents de collecte des incidents applicatifs.
 - Le test pourrait être enrichi par des journaux Windows horodatés pour mesurer précisément les délais de détection et de résolution.
 

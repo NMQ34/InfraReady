@@ -58,4 +58,4 @@ groups:
           labels: {}
           isPaused: false
           notification_settings:
-            receiver: empty
+            receiver: InfraReady - Email Alerts
