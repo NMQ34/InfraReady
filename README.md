@@ -47,7 +47,9 @@ Les détails techniques et les choix d'architecture sont présentés dans [la do
 
 Des playbooks Ansible permettent d'automatiser et de vérifier une partie de la configuration des machines Linux et Windows.
 
-Les playbooks ont été testés pour vérifier leur idempotence.
+Le playbook Linux a été exécuté deux fois avec succès, sans changement lors des vérifications finales (`changed=0`, `failed=0`).
+
+Le playbook Windows a également été exécuté avec succès (`changed=0`, `failed=0`). Il vérifie notamment les services AD DS, DNS et WinRM ainsi que la présence du répertoire `C:\InfraReady`. Il ne réalise pas le déploiement initial d'Active Directory.
 
 ### Supervision
 
@@ -86,9 +88,17 @@ InfraReady/
 │   ├── incident-report.md
 │   └── maintenance.md
 ├── evidence/
+│   ├── ansible-linux-idempotence.png
+│   ├── ansible-windows-validation.png
 │   ├── grafana-alert-history.png
+│   ├── grafana-dashboard.png
 │   ├── grafana-incident-firing.png
-│   └── grafana-incident-recovered.png
+│   ├── grafana-incident-recovered.png
+│   ├── linux-network-storage-services.png
+│   ├── prometheus-targets.png
+│   ├── windows-ad-dns.png
+│   ├── windows-ad-users-groups.png
+│   └── windows-smb-ntfs.png
 ├── inventory/
 │   ├── group_vars/
 │   │   └── windows
@@ -127,6 +137,8 @@ Un workflow GitHub Actions exécute des vérifications Ansible pour détecter ce
 
 Les vérifications CI ne remplacent pas les tests d'exécution réalisés sur les machines virtuelles.
 
+Des exécutions antérieures du workflow ont réussi. Les dernières exécutions n'ont toutefois pas démarré en raison d'un blocage de facturation du compte GitHub, indépendant des configurations Ansible. Les validations locales Linux et Windows ont été réalisées avec succès.
+
 ## Limites de l'environnement
 
 - L'infrastructure est un laboratoire pédagogique et non un environnement de production.
@@ -134,6 +146,15 @@ Les vérifications CI ne remplacent pas les tests d'exécution réalisés sur le
 - WIN-DC01 ne dispose pas d'un accès Internet direct ; les limites associées aux mises à jour Windows sont documentées.
 - Un destinataire fictif est associé à l'alerte Grafana, mais la livraison des notifications nécessite un serveur SMTP fonctionnel.
 - Les configurations exportées peuvent nécessiter une adaptation à un nouvel environnement, notamment les adresses IP et les identifiants de sources de données Grafana.
+
+## Organisation du travail et dépôts GitHub
+
+Le projet a été réalisé par **Deschler Théo** et **Collatuzo Loïc**.
+
+Conformément aux consignes pédagogiques, certaines manipulations ont été effectuées séparément, avec deux dépôts distincts :
+
+- **[NMQ34/InfraReady](https://github.com/NMQ34/InfraReady)** : dépôt principal et final du projet, regroupant l'infrastructure, les configurations, les scripts, la supervision, la documentation et les preuves.
+- **[loiccltz/infraready-ansible](https://github.com/loiccltz/infraready-ansible)** : dépôt complémentaire de Collatuzo Loïc, consacré aux manipulations individuelles.
 
 ## Conclusion
 
